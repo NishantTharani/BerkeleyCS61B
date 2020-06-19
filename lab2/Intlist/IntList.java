@@ -81,8 +81,20 @@ public class IntList {
      */
 
     public static IntList dcatenate(IntList A, IntList B) {
-        //TODO:  fill in method
-        return null;
+        // Create a pointer to A to later return
+        IntList A_head = A;
+
+        // First run through IntList A, stopping on its final element
+        while (A.rest != null) {
+            A = A.rest;
+        }
+
+        // Then append all elements in B to it
+        A.rest = B;
+
+        return A_head;
+
+
     }
 
     /**
@@ -90,8 +102,22 @@ public class IntList {
      * * elements of B.  May NOT modify items of A.  Use 'new'.
      */
     public static IntList catenate(IntList A, IntList B) {
-        //TODO:  fill in method
-        return null;
+        // Edge case: two empty lists make an empty list
+        if (A == null && B == null) {
+            return null;
+        }
+        // Base case: we've reached the end of both IntLists
+        else if (A.rest == null && B == null) {
+            return A;
+        }
+        // If we've reached the end of A but not yet concatenated B, join A to B and go through B
+        else if (A.rest == null) {
+            return new IntList(A.first, catenate(B, null));
+        }
+        // If we've not yet reached the end of A, then keep adding elements of A
+        else {
+            return new IntList(A.first, catenate(A.rest, B));
+        }
     }
 
 
