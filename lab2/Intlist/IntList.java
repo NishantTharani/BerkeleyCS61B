@@ -81,6 +81,12 @@ public class IntList {
      */
 
     public static IntList dcatenate(IntList A, IntList B) {
+        // If A is empty, just return B
+        if (A == null) {
+            A = B;
+            return A;
+        }
+
         // Create a pointer to A to later return
         IntList A_head = A;
 
@@ -93,8 +99,6 @@ public class IntList {
         A.rest = B;
 
         return A_head;
-
-
     }
 
     /**
@@ -102,23 +106,14 @@ public class IntList {
      * * elements of B.  May NOT modify items of A.  Use 'new'.
      */
     public static IntList catenate(IntList A, IntList B) {
-        // Edge case: two empty lists make an empty list
-        if (A == null && B == null) {
-            return null;
+        // Base case: the first list is empty
+        if (A == null) {
+            return B;
         }
-        // Base case: we've reached the end of both IntLists
-        else if (A.rest == null && B == null) {
-            return A;
+
+        // Recursive leap of faith
+        return new IntList(A.first, catenate(A.rest, B));
         }
-        // If we've reached the end of A but not yet concatenated B, join A to B and go through B
-        else if (A.rest == null) {
-            return new IntList(A.first, catenate(B, null));
-        }
-        // If we've not yet reached the end of A, then keep adding elements of A
-        else {
-            return new IntList(A.first, catenate(A.rest, B));
-        }
-    }
 
 
 
