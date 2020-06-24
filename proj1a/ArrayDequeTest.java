@@ -1,5 +1,3 @@
-import java.lang.reflect.Array;
-
 public class ArrayDequeTest {
     public static void addGetTest() {
         ArrayDeque<Integer> aD = new ArrayDeque<>();
@@ -33,9 +31,23 @@ public class ArrayDequeTest {
         int one = A.removeLast();
     }
 
+    public static void addRemoveTest2() {
+        ArrayDeque<Integer> A = new ArrayDeque<>();
+
+        for (int i = 0; i < 100; i++) {
+            A.addFirst(i);
+        }
+
+        for (int i = 0; i < 100; i++) {
+            int test = A.removeFirst();
+            int a = test;
+        }
+    }
+
     public static void main(String[] args) {
         addGetTest();
         resizeNullTest();
         randomAddRemoveTest1();
+        addRemoveTest2();
     }
 }

@@ -55,14 +55,14 @@ public class ArrayDeque<T> {
         int currFirst;
         int currLast;
 
-        if (nextFirst == size - 1) {
+        if (nextFirst == array.length - 1) {
             currFirst = 0;
         } else {
             currFirst = nextFirst + 1;
         }
 
         if (nextLast == 0) {
-            currLast = size - 1;
+            currLast = array.length - 1;
         } else {
             currLast = nextLast - 1;
         }
