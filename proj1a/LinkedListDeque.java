@@ -137,6 +137,9 @@ public class LinkedListDeque<T> {
      * @return - the item at specified index.
      */
     public T get(int index) {
+        if (index >= size) {
+            return null;
+        }
         Node currentNode = sentinel;
 
         // Simple loop to get us to the correct node
@@ -153,7 +156,10 @@ public class LinkedListDeque<T> {
      * @param index - the index of the deque to fetch item from.
      * @return - the item at specified index.
      */
-    private T getRecursive(int index) {
+    public T getRecursive(int index) {
+        if (index >= size) {
+            return null;
+        }
         // Create a pointer to the sentinel node and call the recursive function
         Node pointSentinel = sentinel;
         return recGetRecursive(index, pointSentinel);
@@ -165,7 +171,7 @@ public class LinkedListDeque<T> {
      * @param pointSentinel - a pointer to a reference Node
      * @return - the item index+1 ahead of pointSentinel
      */
-    public T recGetRecursive(int index, Node pointSentinel) {
+    private T recGetRecursive(int index, Node pointSentinel) {
         // Base case: index = 0, return the item right after pointSentinel
         if (index == 0) {
             return pointSentinel.next.item;

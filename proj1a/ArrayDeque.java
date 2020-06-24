@@ -139,7 +139,7 @@ public class ArrayDeque<T> {
 
         // Decrement nextFirst by 1, with wraparound if necessary
         if (nextFirst == 0) {
-            nextFirst = size - 1;
+            nextFirst = array.length - 1;
         } else {
             nextFirst -= 1;
         }
@@ -163,7 +163,7 @@ public class ArrayDeque<T> {
         size -= 1;
 
         // Resize array if less than 25% is used
-        if ((double) size / array.length < 0.25) {
+        if (((double) size / array.length < 0.25) && size >= 8) {
             resize(array.length / 2);
         }
 
@@ -171,11 +171,16 @@ public class ArrayDeque<T> {
     }
 
     public T get(int idx) {
+        if (idx >= size) {
+            return null;
+        }
+
         // Adjust index by nextFirst
         idx += nextFirst + 1;
         if (idx >= array.length) {
             idx -= array.length;
         }
+
         return array[idx];
     }
 
