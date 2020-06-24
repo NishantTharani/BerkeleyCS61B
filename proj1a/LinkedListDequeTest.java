@@ -58,6 +58,21 @@ public class LinkedListDequeTest {
 		printTestStatus(passed);
 	}
 
+	public static void getTest() {
+		System.out.println("Get test: the number 5 should be printed twice");
+		LinkedListDeque<String> lld1 = new LinkedListDeque<>();
+		lld1.addFirst("1");
+		lld1.addLast("3");
+		lld1.addLast("5");
+
+		String s1 = lld1.get(2);
+		String s2 = lld1.getRecursive(2);
+
+		System.out.println(s1);
+		System.out.println(s2);
+		System.out.println();
+	}
+
 	/** Adds an item, then removes an item, and ensures that dll is empty afterwards. */
 	public static void addRemoveTest() {
 
@@ -82,5 +97,6 @@ public class LinkedListDequeTest {
 		System.out.println("Running tests.\n");
 		addIsEmptySizeTest();
 		addRemoveTest();
+		getTest();
 	}
 } 

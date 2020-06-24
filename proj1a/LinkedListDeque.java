@@ -51,7 +51,20 @@ public class LinkedListDeque<ItemType> {
         sentinel = new Node(null);
     }
 
-    // TODO - deep copy constructor
+    /**
+     * Creates a deep copy of a provided LinkedListDeque object
+     * @param other - the LinkedListDeque object to create a copy of
+     */
+    public LinkedListDeque(LinkedListDeque other) {
+        size = 0;
+        sentinel = new Node(null);
+
+        int otherSize = other.size();
+        for (int i = 0; i < otherSize; i++) {
+            ItemType itemToAdd = (ItemType) other.get(i);
+            addLast(itemToAdd);
+        }
+    }
 
     /**
      * Adds an item to the front of the deque.
@@ -128,5 +141,42 @@ public class LinkedListDeque<ItemType> {
         }
 
         return currentNode.item;
+    }
+
+    /**
+     * Returns the item at the specified index of the deque, recursively.
+     * A helper function for recGetRecursive
+     * @param index - the index of the deque to fetch item from.
+     * @return - the item at specified index.
+     */
+    public ItemType getRecursive(int index) {
+        // Create a pointer to the sentinel node and call the recursive function
+        Node pointSentinel = sentinel;
+        return recGetRecursive(index, pointSentinel);
+    }
+
+    /**
+     * Gets the item that is 'index'+1 ahead of 'pointSentinel'
+     * @param index - how far ahead of pointSentinel to look (less one)
+     * @param pointSentinel - a pointer to a reference Node
+     * @return - the item index+1 ahead of pointSentinel
+     */
+    public ItemType recGetRecursive(int index, Node pointSentinel) {
+        // Base case: index = 0, return the item right after pointSentinel
+        if (index == 0) {
+            return pointSentinel.next.item;
+        }
+
+        // Recursive leap: move pointSentinel up one and decrement index
+        return recGetRecursive(index - 1, pointSentinel.next);
+    }
+
+    public void printDeque() {
+        for (int i = 0; i <= size; i++) {
+            ItemType item = get(i);
+            System.out.print(item);
+            System.out.print(" ");
+        }
+        System.out.println();
     }
 }
