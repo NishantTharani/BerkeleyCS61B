@@ -1,20 +1,21 @@
 public class ArrayDequeTest {
     public static void addGetTest() {
-        ArrayDeque<Integer> AD = new ArrayDeque<>();
-        AD.addLast(0);
-        AD.addLast(1);
-        AD.addLast(2);
-        Integer i = AD.get(2);
+        ArrayDeque<Integer> aD = new ArrayDeque<>();
+        for (Integer i = 0; i < 16; i++) {
+            aD.addLast(i);
+        }
+        Integer three = aD.get(3);
+        Integer fifteen = aD.get(15);
     }
 
     public static void resizeNullTest() {
-        ArrayDeque<Integer> AD = new ArrayDeque<>();
+        ArrayDeque<Integer> aD = new ArrayDeque<>();
         for (Integer i = 0; i < 8; i++) {
-            AD.addFirst(i);
+            aD.addFirst(i);
         }
 
-        Integer first = AD.removeFirst();
-        Integer last = AD.removeLast();
+        Integer first = aD.removeFirst();
+        Integer last = aD.removeLast();
     }
 
     public static void main(String[] args) {

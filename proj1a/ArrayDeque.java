@@ -10,7 +10,7 @@ Description: An array-based implementation of a deque
 public class ArrayDeque<T> {
 
     private int size;
-    private final double RFACTOR = 1.25;
+    private final double RFACTOR = 1.5;
     private T[] array;
 
     // These point to the index at which the next 'first element' and 'last element' should be added
@@ -90,7 +90,7 @@ public class ArrayDeque<T> {
         size += 1;
 
         // Increment nextLast by 1, or wrap around from the beginning if needed
-        if (nextLast == size - 1) {
+        if (nextLast == array.length - 1) {
             nextLast = 0;
         } else {
             nextLast += 1;
@@ -107,6 +107,9 @@ public class ArrayDeque<T> {
      * @return last int in the list
      */
     public T removeLast() {
+        if (isEmpty()) {
+            return null;
+        }
         // Get the item and adjust the reference variables
         if (nextLast == 0) {
             nextLast = size - 1;
@@ -152,8 +155,11 @@ public class ArrayDeque<T> {
      * @return ItemType i - the first item in the deque.
      */
     public T removeFirst() {
+        if (isEmpty()) {
+            return null;
+        }
         // Get the item and update reference variables
-        if (nextFirst == size - 1) {
+        if (nextFirst == array.length - 1) {
             nextFirst = 0;
         } else {
             nextFirst += 1;

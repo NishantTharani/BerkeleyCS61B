@@ -97,6 +97,10 @@ public class LinkedListDeque<T> {
      * @return item - the first item of the deque, now removed.
      */
     public T removeFirst() {
+        if (isEmpty()) {
+            return null;
+        }
+
         Node firstNode = sentinel.next;
         sentinel.next = firstNode.next;
         sentinel.next.prev = sentinel;
@@ -109,6 +113,10 @@ public class LinkedListDeque<T> {
      * @return item - the last item of the deque, now removed.
      */
     public T removeLast() {
+        if (isEmpty()) {
+            return null;
+        }
+
         Node lastNode = sentinel.prev;
         sentinel.prev = lastNode.prev;
         sentinel.prev.next = sentinel;
