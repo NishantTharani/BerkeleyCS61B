@@ -27,9 +27,9 @@ public class ArrayDeque<T> {
         nextLast = 1;
     }
 
-    /**
+/*    *//**
      * Initialises the deque as a deep copy of another one.
-     */
+     *//*
     public ArrayDeque(ArrayDeque other) {
         size = 0;
         int otherSize = other.size();
@@ -40,15 +40,16 @@ public class ArrayDeque<T> {
             addLast(item);
         }
 
-    }
+    }*/
 
     /**
-     * Resizes the underlying array to be newSize large.
+     * Resizes the underlying array to be newLength large.
+     * Precondition: size must be >= 1.
      * Note that the nextFirst and nextLast pointers have to be updated.
      */
-    public void resize(int newSize) {
+    private void resize(int newLength) {
         // Create new array
-        T[] newArray = (T[]) new Object[newSize];
+        T[] newArray = (T[]) new Object[newLength];
 
         // Find position of the current first and last element
         int currFirst;
@@ -75,10 +76,9 @@ public class ArrayDeque<T> {
         }
 
         // Update reference variables
-        nextFirst = newSize - 1;
+        nextFirst = newLength - 1;
         nextLast = size;
         array = newArray;
-        size = newSize;
     }
 
     public void addLast(T i) {
@@ -111,14 +111,14 @@ public class ArrayDeque<T> {
         if (nextLast == 0) {
             nextLast = size - 1;
         } else {
-            nextLast = nextLast - 1;
+            nextLast -= 1;
         }
         T i = array[nextLast];
-        array[nextLast] = null;
+//        array[nextLast] = null;
         size -= 1;
 
         // If less than 25% of the array is used, resize it to half its size
-        if ((double) size / array.length < 0.25) {
+        if (((double) size / array.length < 0.25) && (size >= 8)) {
             resize(array.length / 2);
         }
 
@@ -159,7 +159,7 @@ public class ArrayDeque<T> {
             nextFirst += 1;
         }
         T i = array[nextFirst];
-        array[nextFirst] = null;
+//        array[nextFirst] = null;
         size -= 1;
 
         // Resize array if less than 25% is used
@@ -173,8 +173,8 @@ public class ArrayDeque<T> {
     public T get(int idx) {
         // Adjust index by nextFirst
         idx += nextFirst + 1;
-        if (idx >= size) {
-            idx -= size;
+        if (idx >= array.length) {
+            idx -= array.length;
         }
         return array[idx];
     }

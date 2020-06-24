@@ -18,7 +18,7 @@ public class LinkedListDeque<T> {
      *      a reference to the next item
      *      a reference to the previous item
      */
-    public class Node {
+    private class Node {
         private Node prev;
         private Node next;
         private T item;
@@ -49,12 +49,14 @@ public class LinkedListDeque<T> {
     public LinkedListDeque() {
         size = 0;
         sentinel = new Node(null);
+        sentinel.next = sentinel;
+        sentinel.prev = sentinel;
     }
 
-    /**
+/*    *//**
      * Creates a deep copy of a provided LinkedListDeque object
      * @param other - the LinkedListDeque object to create a copy of
-     */
+     *//*
     public LinkedListDeque(LinkedListDeque other) {
         size = 0;
         sentinel = new Node(null);
@@ -64,18 +66,18 @@ public class LinkedListDeque<T> {
             T itemToAdd = (T) other.get(i);
             addLast(itemToAdd);
         }
-    }
+    }*/
 
     /**
      * Adds an item to the front of the deque.
      * @param item - item to be added to the front of the deque.
      */
     public void addFirst(T item) {
-        Node secondNode = sentinel.next;
+        Node firstNode = sentinel.next;
         size += 1;
-        Node newSecondNode = new Node(item, sentinel, secondNode);
-        sentinel.next = newSecondNode;
-        secondNode.prev = newSecondNode;
+        Node newFirstNode = new Node(item, sentinel, firstNode);
+        sentinel.next = newFirstNode;
+        firstNode.prev = newFirstNode;
     }
 
     /**
@@ -97,6 +99,7 @@ public class LinkedListDeque<T> {
     public T removeFirst() {
         Node firstNode = sentinel.next;
         sentinel.next = firstNode.next;
+        sentinel.next.prev = sentinel;
         size -= 1;
         return firstNode.item;
     }
@@ -108,6 +111,7 @@ public class LinkedListDeque<T> {
     public T removeLast() {
         Node lastNode = sentinel.prev;
         sentinel.prev = lastNode.prev;
+        sentinel.prev.next = sentinel;
         size -= 1;
         return lastNode.item;
     }
@@ -149,7 +153,7 @@ public class LinkedListDeque<T> {
      * @param index - the index of the deque to fetch item from.
      * @return - the item at specified index.
      */
-    public T getRecursive(int index) {
+    private T getRecursive(int index) {
         // Create a pointer to the sentinel node and call the recursive function
         Node pointSentinel = sentinel;
         return recGetRecursive(index, pointSentinel);
