@@ -112,7 +112,7 @@ public class ArrayDeque<T> {
         }
         // Get the item and adjust the reference variables
         if (nextLast == 0) {
-            nextLast = size - 1;
+            nextLast = array.length - 1;
         } else {
             nextLast -= 1;
         }
