@@ -7,11 +7,11 @@ Description: An array-based implementation of a deque
 /**
  * Implementation of a deque that uses an Array under the hood.
  */
-public class ArrayDeque<ItemType> {
+public class ArrayDeque<T> {
 
     private int size;
     private final double RFACTOR = 1.25;
-    private ItemType[] array;
+    private T[] array;
 
     // These point to the index at which the next 'first element' and 'last element' should be added
     private int nextFirst;
@@ -22,7 +22,7 @@ public class ArrayDeque<ItemType> {
      */
     public ArrayDeque() {
         size = 0;
-        array = (ItemType [] ) new Object[8];
+        array = (T[]) new Object[8];
         nextFirst = 0;
         nextLast = 1;
     }
@@ -33,10 +33,10 @@ public class ArrayDeque<ItemType> {
     public ArrayDeque(ArrayDeque other) {
         size = 0;
         int otherSize = other.size();
-        array = (ItemType [] ) new Object[otherSize];
+        array = (T[]) new Object[otherSize];
 
         for (int i = 0; i < otherSize; i++) {
-            ItemType item = (ItemType) other.removeFirst();
+            T item = (T) other.removeFirst();
             addLast(item);
         }
 
@@ -48,7 +48,7 @@ public class ArrayDeque<ItemType> {
      */
     public void resize(int newSize) {
         // Create new array
-        ItemType[] newArray = (ItemType []) new Object[newSize];
+        T[] newArray = (T[]) new Object[newSize];
 
         // Find position of the current first and last element
         int currFirst;
@@ -56,24 +56,20 @@ public class ArrayDeque<ItemType> {
 
         if (nextFirst == size - 1) {
             currFirst = 0;
-        }
-        else {
+        } else {
             currFirst = nextFirst + 1;
         }
 
         if (nextLast == 0) {
             currLast = size - 1;
-        }
-        else {
+        } else {
             currLast = nextLast - 1;
         }
 
-        // If the underlying array has no 'wrap-around' it's a straightforward copy
+        // If the underlying array has 'wrap-around' then we need to do two copies
         if (currLast >= currFirst) {
             System.arraycopy(array, currFirst, newArray, 0, size);
-        }
-        // If the underlying array has wrap-around then two copies are needed
-        else {
+        } else {
             System.arraycopy(array, currFirst, newArray, 0, array.length - currFirst);
             System.arraycopy(array, 0, newArray, array.length - currFirst, currLast + 1);
         }
@@ -85,7 +81,7 @@ public class ArrayDeque<ItemType> {
         size = newSize;
     }
 
-    public void addLast(ItemType i) {
+    public void addLast(T i) {
         // If the array is at capacity, resize it by creating a new one
         if (size == array.length) {
             resize((int) (size * RFACTOR));
@@ -96,8 +92,7 @@ public class ArrayDeque<ItemType> {
         // Increment nextLast by 1, or wrap around from the beginning if needed
         if (nextLast == size - 1) {
             nextLast = 0;
-        }
-        else {
+        } else {
             nextLast += 1;
         }
     }
@@ -111,21 +106,20 @@ public class ArrayDeque<ItemType> {
      *
      * @return last int in the list
      */
-    public ItemType removeLast() {
+    public T removeLast() {
         // Get the item and adjust the reference variables
         if (nextLast == 0) {
             nextLast = size - 1;
-        }
-        else {
+        } else {
             nextLast = nextLast - 1;
         }
-        ItemType i = array[nextLast];
+        T i = array[nextLast];
         array[nextLast] = null;
         size -= 1;
 
         // If less than 25% of the array is used, resize it to half its size
         if ((double) size / array.length < 0.25) {
-            resize(array.length /2);
+            resize(array.length / 2);
         }
 
         return i;
@@ -135,9 +129,9 @@ public class ArrayDeque<ItemType> {
      * Adds item i to the front of the deque and updates the nextFirst pointer
      * @param i - item to add to the front of the deque
      */
-    public void addFirst(ItemType i) {
+    public void addFirst(T i) {
         if (size == array.length) {
-            resize((int) ( size * RFACTOR));
+            resize((int) (size * RFACTOR));
         }
 
         array[nextFirst] = i;
@@ -146,8 +140,7 @@ public class ArrayDeque<ItemType> {
         // Decrement nextFirst by 1, with wraparound if necessary
         if (nextFirst == 0) {
             nextFirst = size - 1;
-        }
-        else {
+        } else {
             nextFirst -= 1;
         }
     }
@@ -158,27 +151,26 @@ public class ArrayDeque<ItemType> {
      * underlying array to null.
      * @return ItemType i - the first item in the deque.
      */
-    public ItemType removeFirst() {
+    public T removeFirst() {
         // Get the item and update reference variables
         if (nextFirst == size - 1) {
             nextFirst = 0;
-        }
-        else {
+        } else {
             nextFirst += 1;
         }
-        ItemType i = array[nextFirst];
+        T i = array[nextFirst];
         array[nextFirst] = null;
         size -= 1;
 
         // Resize array if less than 25% is used
         if ((double) size / array.length < 0.25) {
-            resize(array.length /2);
+            resize(array.length / 2);
         }
 
         return i;
     }
 
-    public ItemType get(int idx) {
+    public T get(int idx) {
         // Adjust index by nextFirst
         idx += nextFirst + 1;
         if (idx >= size) {
@@ -192,12 +184,7 @@ public class ArrayDeque<ItemType> {
     }
 
     public boolean isEmpty() {
-        if (size == 0) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return size == 0;
     }
 
     /**
@@ -205,7 +192,7 @@ public class ArrayDeque<ItemType> {
      */
     public void printDeque() {
         for (int i = 0; i < size; i++) {
-            ItemType itm = array[i];
+            T itm = array[i];
             System.out.print(itm);
             System.out.print(" ");
         }

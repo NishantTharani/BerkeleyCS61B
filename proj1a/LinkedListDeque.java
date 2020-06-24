@@ -8,7 +8,7 @@ Description: A linked list implementation of a Deque
 /**
  * Implementation of a generic deque that uses a doubly linked list under the hood.
  */
-public class LinkedListDeque<ItemType> {
+public class LinkedListDeque<T> {
 
     /**
      * Double facing nodes used to make up the list.
@@ -19,11 +19,11 @@ public class LinkedListDeque<ItemType> {
      *      a reference to the previous item
      */
     public class Node {
-        public Node prev;
-        public Node next;
-        public ItemType item;
+        private Node prev;
+        private Node next;
+        private T item;
 
-        public Node(ItemType i, Node p, Node n) {
+        public Node(T i, Node p, Node n) {
             prev = p;
             next = n;
             item = i;
@@ -33,7 +33,7 @@ public class LinkedListDeque<ItemType> {
          * Constructor used to create a circular sentinel node when initialising
          * the deque. This node's previous and next references point to itself.
          */
-        public Node(ItemType i) {
+        public Node(T i) {
             prev = this;
             next = this;
             item = i;
@@ -61,7 +61,7 @@ public class LinkedListDeque<ItemType> {
 
         int otherSize = other.size();
         for (int i = 0; i < otherSize; i++) {
-            ItemType itemToAdd = (ItemType) other.get(i);
+            T itemToAdd = (T) other.get(i);
             addLast(itemToAdd);
         }
     }
@@ -70,7 +70,7 @@ public class LinkedListDeque<ItemType> {
      * Adds an item to the front of the deque.
      * @param item - item to be added to the front of the deque.
      */
-    public void addFirst(ItemType item) {
+    public void addFirst(T item) {
         Node secondNode = sentinel.next;
         size += 1;
         Node newSecondNode = new Node(item, sentinel, secondNode);
@@ -82,7 +82,7 @@ public class LinkedListDeque<ItemType> {
      * Adds an item to the end of the deque.
      * @param item - item to be added to the end of the deque.
      */
-    public void addLast(ItemType item) {
+    public void addLast(T item) {
         Node lastNode = sentinel.prev;
         size += 1;
         Node newLastNode = new Node(item, lastNode, sentinel);
@@ -94,7 +94,7 @@ public class LinkedListDeque<ItemType> {
      * Removes and returns the first item from the deque.
      * @return item - the first item of the deque, now removed.
      */
-    public ItemType removeFirst() {
+    public T removeFirst() {
         Node firstNode = sentinel.next;
         sentinel.next = firstNode.next;
         size -= 1;
@@ -105,7 +105,7 @@ public class LinkedListDeque<ItemType> {
      * Removes and returns the last item from the deque.
      * @return item - the last item of the deque, now removed.
      */
-    public ItemType removeLast() {
+    public T removeLast() {
         Node lastNode = sentinel.prev;
         sentinel.prev = lastNode.prev;
         size -= 1;
@@ -132,7 +132,7 @@ public class LinkedListDeque<ItemType> {
      * @param index - index of the deque to fetch item from.
      * @return - the item at specified index.
      */
-    public ItemType get(int index) {
+    public T get(int index) {
         Node currentNode = sentinel;
 
         // Simple loop to get us to the correct node
@@ -149,7 +149,7 @@ public class LinkedListDeque<ItemType> {
      * @param index - the index of the deque to fetch item from.
      * @return - the item at specified index.
      */
-    public ItemType getRecursive(int index) {
+    public T getRecursive(int index) {
         // Create a pointer to the sentinel node and call the recursive function
         Node pointSentinel = sentinel;
         return recGetRecursive(index, pointSentinel);
@@ -161,7 +161,7 @@ public class LinkedListDeque<ItemType> {
      * @param pointSentinel - a pointer to a reference Node
      * @return - the item index+1 ahead of pointSentinel
      */
-    public ItemType recGetRecursive(int index, Node pointSentinel) {
+    public T recGetRecursive(int index, Node pointSentinel) {
         // Base case: index = 0, return the item right after pointSentinel
         if (index == 0) {
             return pointSentinel.next.item;
@@ -173,7 +173,7 @@ public class LinkedListDeque<ItemType> {
 
     public void printDeque() {
         for (int i = 0; i <= size; i++) {
-            ItemType item = get(i);
+            T item = get(i);
             System.out.print(item);
             System.out.print(" ");
         }

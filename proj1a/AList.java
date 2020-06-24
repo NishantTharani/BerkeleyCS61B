@@ -17,7 +17,7 @@ public class AList<ItemType> {
      */
     public AList() {
         size = 0;
-        array = (ItemType [] ) new Object[100];
+        array = (ItemType []) new Object[100];
     }
 
     public void addLast(ItemType i) {
@@ -43,7 +43,7 @@ public class AList<ItemType> {
      * @return i - last int in the list.
      */
     public ItemType getLast() {
-        return array[size-1];
+        return array[size - 1];
     }
 
     /**
@@ -55,12 +55,12 @@ public class AList<ItemType> {
      * @return last int in the list
      */
     public ItemType removeLast() {
-        ItemType i = array[size-1];
+        ItemType i = array[size - 1];
         size -= 1;
 
         // If less than 25% of the array is used, resize it to half its size
         if ((double) size / array.length < 0.25) {
-            resize((int) array.length/2);
+            resize((int) array.length / 2);
         }
 
         return i;
