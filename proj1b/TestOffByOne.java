@@ -12,12 +12,15 @@ public class TestOffByOne {
         assertTrue(offByOne.equalChars('a', 'b'));
         assertTrue(offByOne.equalChars('T', 'U'));
         assertTrue(offByOne.equalChars('&', '%'));
+        assertTrue(offByOne.equalChars('Z', '['));
     }
 
     @Test
     public void testInequalChars() {
         assertFalse(offByOne.equalChars('a', 'm'));
         assertFalse(offByOne.equalChars('A', 'A'));
+        assertFalse(offByOne.equalChars('A', 'C'));
+        assertFalse(offByOne.equalChars('a', 'A'));
         assertFalse(offByOne.equalChars(';', '!'));
     }
 }
