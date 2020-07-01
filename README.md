@@ -10,6 +10,7 @@ HW/Projects:
 
 - Project 1A
 
-Discussions:
+Discussions (maybe not complete):
 
-- Disc 2 (partly)
+- Disc 2
+- Disc 3
