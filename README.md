@@ -6,11 +6,19 @@ Skeleton code for assignments taken from https://github.com/Berkeley-CS61B/skele
 The folder structure of the skeleton code has been preserved so that I can take advantage of the public Gradescope access - see https://zhuanlan.zhihu.com/p/115229260 for a good guide on this
 
 ## Finished assignments
+
+(Spring 2018 versions unless stated otherwise)
+
 HW/Projects:
 
-- Project 1A
+- Project 1A, 1B, 1-Gold
 
-Discussions (maybe not complete):
+Labs:
+
+- 1, 2, 3
+
+Discussions (Spring 2019, and to the extent that I wanted to do them):
 
 - Disc 2
 - Disc 3
+- Disc 4
