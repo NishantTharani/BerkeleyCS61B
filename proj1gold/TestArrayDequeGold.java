@@ -23,7 +23,7 @@ public class TestArrayDequeGold {
                 }
                 else {
                     sad.addLast(i);
-                    sad.addLast(i);
+                    ad.addLast(i);
                     msg = msg.concat("addLast(").concat(String.valueOf(i)).concat(")\n");
                 }
             }
