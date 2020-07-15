@@ -22,6 +22,8 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T>  {
      * iterate over elements in the queue.
      */
     private class ArrayRingBufferIterator implements Iterator<T> {
+        private int numIterated;
+        private int position;
 
         /**
          * Checks if there are any elements left to iterate over.
@@ -29,7 +31,7 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T>  {
          *                  else false
          */
         public boolean hasNext() {
-            return !isEmpty();
+            return numIterated < fillCount();
         }
 
         /**
@@ -37,7 +39,14 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T>  {
          * @returns T: next element
          */
         public T next() {
-            return dequeue();
+            T item = rb[position];
+            position += 1;
+            if (position == capacity) {
+                position = 0;
+            }
+
+            numIterated += 1;
+            return item;
         }
     }
 
@@ -111,7 +120,6 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T>  {
      * Returns the iterator for this queue.
      * @return the iterator object for this queue
      */
-    @Override
     public Iterator<T> iterator() {
         return new ArrayRingBufferIterator();
     }
