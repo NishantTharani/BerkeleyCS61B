@@ -169,8 +169,8 @@ public class LinkedListDeque<T> {
             return null;
         }
         // Create a pointer to the sentinel node and call the recursive function
-        Node pointSentinel = sentinel;
-        return recGetRecursive(index, pointSentinel);
+        Node start = sentinel.next;
+        return recGetRecursive(index, start);
     }
 
     /**
@@ -182,7 +182,7 @@ public class LinkedListDeque<T> {
     private T recGetRecursive(int index, Node pointSentinel) {
         // Base case: index = 0, return the item right after pointSentinel
         if (index == 0) {
-            return pointSentinel.next.item;
+            return pointSentinel.item;
         }
 
         // Recursive leap: move pointSentinel up one and decrement index
