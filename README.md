@@ -16,9 +16,14 @@ HW/Projects:
 Labs:
 
 - 1, 2, 3
+- Spring 2019:
+  - Lab 6
 
 Discussions (Spring 2019, and to the extent that I wanted to do them):
 
 - Disc 2
 - Disc 3
 - Disc 4
+- Disc 6
+- Spring 2018:
+  - Disc 7
