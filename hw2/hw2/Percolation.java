@@ -2,6 +2,9 @@ package hw2;
 
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
+/**
+ * Models a square percolation system.
+ */
 public class Percolation {
 
     private WeightedQuickUnionUF connections;
@@ -59,7 +62,7 @@ public class Percolation {
      * @param col - col to be translated into 1D
      * @return - 1D representation of the 2D co-ordinates
      */
-    public int rowColTo1D(int row, int col) {
+    private int rowColTo1D(int row, int col) {
         return row * n + col + 1;
     }
 
@@ -106,7 +109,7 @@ public class Percolation {
      * @return - true if a valid route exists from the top row to the provided spot, else false
      */
     public boolean isFull(int row, int col) {
-        return connectionsTopOnly.connected(top, rowColTo1D(row, col));
+        return (isOpen(row, col) && connectionsTopOnly.connected(top, rowColTo1D(row, col)));
     }
 
     /**
@@ -129,6 +132,10 @@ public class Percolation {
         } else {
             return connections.connected(top, bottom);
         }
+    }
+
+    public static void main(String[] args) {
+        return;
     }
 
 

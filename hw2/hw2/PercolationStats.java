@@ -43,7 +43,7 @@ public class PercolationStats {
      * @param rowLength - number of elements in each 'row' of the 2D co-ordinates
      * @return coords[0] is the row index, coords[1] is the column index
      */
-    public int[] idxToRowCol(int idx, int rowLength) {
+    private int[] idxToRowCol(int idx, int rowLength) {
         int[] coords = new int[2];
         coords[0] = idx / rowLength;
         coords[1] = idx % rowLength;
