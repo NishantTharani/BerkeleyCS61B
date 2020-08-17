@@ -72,7 +72,7 @@ public class Percolation {
      * @return - 1D representation of the 2D co-ordinates
      */
     private int rowColTo1D(int row, int col) {
-        return row * n + col + 1;
+        return (row * n) + col + 1;
     }
 
     /**
@@ -97,15 +97,15 @@ public class Percolation {
         }
         if (row > 0 && grid[row - 1][col]) {
             connections.union(rowColTo1D(row, col), rowColTo1D(row - 1, col));
-            connectionsTopOnly.union(rowColTo1D(row, col), rowColTo1D(row + 1, col));
+            connectionsTopOnly.union(rowColTo1D(row, col), rowColTo1D(row - 1, col));
         }
         if (col < n - 1 && grid[row][col + 1]) {
             connections.union(rowColTo1D(row, col), rowColTo1D(row, col + 1));
-            connectionsTopOnly.union(rowColTo1D(row, col), rowColTo1D(row + 1, col));
+            connectionsTopOnly.union(rowColTo1D(row, col), rowColTo1D(row, col + 1));
         }
         if (col > 0 && grid[row][col - 1]) {
             connections.union(rowColTo1D(row, col), rowColTo1D(row, col - 1));
-            connectionsTopOnly.union(rowColTo1D(row, col), rowColTo1D(row + 1, col));
+            connectionsTopOnly.union(rowColTo1D(row, col), rowColTo1D(row, col - 1));
         }
     }
 

@@ -29,7 +29,7 @@ public class PercolationStats {
                 numOpened += 1;
                 perc.open(coords[0], coords[1]);
             }
-            successFractions[i] = (double) numOpened / ( (double) N * N);
+            successFractions[i] = (double) numOpened / ((double) N * N);
         }
 
         mean = StdStats.mean(successFractions);
