@@ -18,6 +18,9 @@ public class PercolationStats {
      * @param pf - factory that provides Percolation objects
      */
     public PercolationStats(int N, int T, PercolationFactory pf) {
+        if (N < 0 || T <= 0) {
+            throw new IllegalArgumentException();
+        }
         numExperiments = T;
         double[] successFractions = new double[T];
         for (int i = 0; i < T; i++) {

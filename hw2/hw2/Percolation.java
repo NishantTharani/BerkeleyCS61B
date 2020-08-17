@@ -88,8 +88,10 @@ public class Percolation {
             throw new IndexOutOfBoundsException();
         }
 
-        grid[row][col] = true;
-        numOpen += 1;
+        if (!grid[row][col]) {
+            grid[row][col] = true;
+            numOpen += 1;
+        }
 
         if (row < n - 1 && grid[row + 1][col]) {
             connections.union(rowColTo1D(row, col), rowColTo1D(row + 1, col));
