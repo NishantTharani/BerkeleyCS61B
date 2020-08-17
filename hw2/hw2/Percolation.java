@@ -17,19 +17,27 @@ public class Percolation {
 
 
     /**
-     * Creates a NxN grid representing the spots in the percolation grid, with all
+     * Creates a NxN grid representing the spots in the percolation grid,
+     * with all
      * spots initially set to closed (a value of false in the 2D array).
      *
      * Also creates
-     * a WeightedQuickUnionUF object to represent which open spots are connected to each
-     * other; this can later be used to quickly see whether the grid percolates by checking
-     * whether any open spots in the top row are connected to any spots in the bottom row.
+     * a WeightedQuickUnionUF object to represent which open spots are
+     * connected to each
+     * other; this can later be used to quickly see whether the grid
+     * percolates by checking
+     * whether any open spots in the top row are connected to any
+     * spots in the bottom row.
      *
-     * The item at i'th row and j'th column is represented at the i*n + j + 1 index of our
-     * WQUUF object. This is because index 0 of the WQUUF is used for a 'virtual top site', which
-     * connects to all of the spots in the top row of the grid, allowing for constant time checking
+     * The item at i'th row and j'th column is represented at the
+     * i*n + j + 1 index of our
+     * WQUUF object. This is because index 0 of the WQUUF is used for
+     * a 'virtual top site', which
+     * connects to all of the spots in the top row of the grid,
+     * allowing for constant time checking
      * of fullness/percolation.
-     * In addition, index n * n + 1 of the larger WQUUF - 'connections' - is used for a virtual bottom
+     * In addition, index n * n + 1 of the larger WQUUF - 'connections'
+     * - is used for a virtual bottom
      * site, which does the same thing for the bottom row.
      *
      * @param N - the number of rows & columns in the percolation grid.
@@ -56,7 +64,8 @@ public class Percolation {
     }
 
     /**
-     * Returns a 1D representation of the provided 2D co-ordinates, calculated as
+     * Returns a 1D representation of the provided 2D co-ordinates,
+     * calculated as
      * row * n + col + 1 (as the first index is our virtual top site).
      * @param row - row to be translated into 1D
      * @param col - col to be translated into 1D
@@ -67,8 +76,10 @@ public class Percolation {
     }
 
     /**
-     * Opens up the spot located at the provided position in the percolated grid. Then, if any of the
-     * neighbouring (top/left/bottom/right) spots are also open, connects the partitions of the two spots.
+     * Opens up the spot located at the provided position in the
+     * percolated grid. Then, if any of the
+     * neighbouring (top/left/bottom/right) spots are also open,
+     * connects the partitions of the two spots.
      * @param row - the row index of the spot to be opened up
      * @param col - the column index of the spot to be opened up
      */
@@ -80,14 +91,27 @@ public class Percolation {
         grid[row][col] = true;
         numOpen += 1;
 
-        if (row < n-1 && grid[row+1][col]) connections.union(rowColTo1D(row, col), rowColTo1D(row+1, col));
-        if (row > 0 && grid[row-1][col]) connections.union(rowColTo1D(row, col), rowColTo1D(row-1, col));
-        if (col < n-1 && grid[row][col+1]) connections.union(rowColTo1D(row, col), rowColTo1D(row, col+1));
-        if (col > 0 && grid[row][col-1]) connections.union(rowColTo1D(row, col), rowColTo1D(row, col-1));
+        if (row < n - 1 && grid[row + 1][col]) {
+            connections.union(rowColTo1D(row, col), rowColTo1D(row + 1, col));
+            connectionsTopOnly.union(rowColTo1D(row, col), rowColTo1D(row + 1, col));
+        }
+        if (row > 0 && grid[row - 1][col]) {
+            connections.union(rowColTo1D(row, col), rowColTo1D(row - 1, col));
+            connectionsTopOnly.union(rowColTo1D(row, col), rowColTo1D(row + 1, col));
+        }
+        if (col < n - 1 && grid[row][col + 1]) {
+            connections.union(rowColTo1D(row, col), rowColTo1D(row, col + 1));
+            connectionsTopOnly.union(rowColTo1D(row, col), rowColTo1D(row + 1, col));
+        }
+        if (col > 0 && grid[row][col - 1]) {
+            connections.union(rowColTo1D(row, col), rowColTo1D(row, col - 1));
+            connectionsTopOnly.union(rowColTo1D(row, col), rowColTo1D(row + 1, col));
+        }
     }
 
     /**
-     * Returns a bool representing whether the spot at the provided location in the percolation grid is open
+     * Returns a bool representing whether the spot at the
+     * provided location in the percolation grid is open
      * (true means it is open).
      * @param row - row index of the spot to check
      * @param col - col index of the spot to check
@@ -102,14 +126,18 @@ public class Percolation {
     }
 
     /**
-     * Checks whether there is a valid route from any spot on the top row to the spot at the provided
-     * index, by a single check to see if the provided spot is connected to the 'virtual top site'.
+     * Checks whether there is a valid route from any spot on
+     * the top row to the spot at the provided
+     * index, by a single check to see if the provided spot is
+     * connected to the 'virtual top site'.
      * @param row - row index of the spot to check full-ness of
      * @param col - col index of the spot to check full-ness of
-     * @return - true if a valid route exists from the top row to the provided spot, else false
+     * @return - true if a valid route exists from the top row
+     * to the provided spot, else false
      */
     public boolean isFull(int row, int col) {
-        return (isOpen(row, col) && connectionsTopOnly.connected(top, rowColTo1D(row, col)));
+        return (isOpen(row, col)
+                && connectionsTopOnly.connected(top, rowColTo1D(row, col)));
     }
 
     /**
@@ -121,8 +149,10 @@ public class Percolation {
     }
 
     /**
-     * Does the system percolate? Only a single call is required to check whether the virtual top
-     * and virtual bottom sites are connected, since we've linked them to all the spots in the top/bottom
+     * Does the system percolate? Only a single call is
+     * required to check whether the virtual top
+     * and virtual bottom sites are connected, since we've
+     * linked them to all the spots in the top/bottom
      * rows earlier on.
      * @return true if the system percolates, else false.
      */
@@ -134,6 +164,10 @@ public class Percolation {
         }
     }
 
+    /**
+     * The main method. Yup. It is, apparently, needed.
+     * @param args - the args. Uh-huh.
+     */
     public static void main(String[] args) {
         return;
     }
