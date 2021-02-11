@@ -12,6 +12,7 @@ The folder structure of the skeleton code has been preserved so that I can take 
 HW/Projects:
 
 - Project 1A, 1B, 1-Gold
+- HW1, HW2
 
 Labs:
 
