@@ -86,6 +86,21 @@ public class TestBSTMap {
         assertTrue(b.get("hi") != null);
     }
 
+    //assumes get/containskey work
+    @Test
+    public void sanityRemoveTest() {
+        BSTMap<String, Integer> b = new BSTMap<String, Integer>();
+        b.put("hi", 1);
+        b.put("hello", 10);
+        b.put("bye", 5);
+        assertTrue(b.remove("no") == null);
+        assertTrue(b.remove("hi") == 1);
+        assertTrue(b.remove("hi") == null);
+        assertTrue(b.remove("hello") == 10);
+        assertTrue(b.remove("hello") == null);
+        assertTrue(b.remove("bye") == 5);
+    }
+
     public static void main(String[] args) {
         jh61b.junit.TestRunner.runTests(TestBSTMap.class);
     }

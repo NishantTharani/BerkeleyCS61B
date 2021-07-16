@@ -152,35 +152,44 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
         Node newChild;
         Node newChildsParent;
 
-        if (left == null || right == null) {
-            newChild = left == null ? right : left;
+        if (left == null && right == null) {
+            updateParent(parent, curr, null);
+        } else if (left == null) {
+            updateParent(parent, curr, right);
+        } else if (right == null) {
+            updateParent(parent, curr, left);
         } else {
             newChildsParent = curr;
             newChild = curr.left;
             while (newChild.right != null) {
-                newChildsParent = newChildsParent.right;
+                newChildsParent = newChild;
                 newChild = newChild.right;
             }
-            if (newChild == newChildsParent.right) {
-                newChildsParent.right = null;
-            } else {
-                newChildsParent.left = null;
-            }
+            curr.value = newChild.value;
+            updateParent(newChildsParent, newChild, null);
         }
 
-        newChild.left = curr.left;  // if newChild *was* curr.left, curr.left will have been nulled above already
-        newChild.right = curr.right;
+        size--;
+        return val;
+    }
 
+    /** Updates parent to point to newChild instead of child
+     * If parent is null then updates root to point to newChild
+     * @param parent Node to update child pointer of
+     * @param child Node to update parent pointer to
+     * @param newChild New node to point to
+     */
+    private void updateParent(Node parent, Node child, Node newChild) {
         if (parent == null) {
             root = newChild;
         }
-        else if (parent.left == curr) {
+        else if (parent.left == child) {
             parent.left = newChild;
-        } else {
+        } else if (parent.right == child) {
             parent.right = newChild;
+        } else {
+            throw new RuntimeException();
         }
-
-        return val;
     }
 
     /** Removes the key-value entry for the specified key only if it is
@@ -195,6 +204,7 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
             return null;
 
         remove(key);
+        size--;
         return actualVal;
     }
 
