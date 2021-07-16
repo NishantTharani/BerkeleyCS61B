@@ -133,7 +133,54 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
      */
     @Override
     public V remove(K key) {
-        throw new UnsupportedOperationException();
+        Node parent = null;
+        Node curr = root;
+        int result = key.compareTo(curr.key);
+
+        while (result != 0 && curr != null) {
+            result = key.compareTo(curr.key);
+            parent = curr;
+            curr = result < 0 ? curr.left : curr.right;
+        }
+
+        if (curr == null)
+            return null;
+
+        V val = curr.value;
+        Node left = curr.left;
+        Node right = curr.right;
+        Node newChild;
+        Node newChildsParent;
+
+        if (left == null || right == null) {
+            newChild = left == null ? right : left;
+        } else {
+            newChildsParent = curr;
+            newChild = curr.left;
+            while (newChild.right != null) {
+                newChildsParent = newChildsParent.right;
+                newChild = newChild.right;
+            }
+            if (newChild == newChildsParent.right) {
+                newChildsParent.right = null;
+            } else {
+                newChildsParent.left = null;
+            }
+        }
+
+        newChild.left = curr.left;  // if newChild *was* curr.left, curr.left will have been nulled above already
+        newChild.right = curr.right;
+
+        if (parent == null) {
+            root = newChild;
+        }
+        else if (parent.left == curr) {
+            parent.left = newChild;
+        } else {
+            parent.right = newChild;
+        }
+
+        return val;
     }
 
     /** Removes the key-value entry for the specified key only if it is
@@ -142,11 +189,18 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
      **/
     @Override
     public V remove(K key, V value) {
-        throw new UnsupportedOperationException();
+        V actualVal = get(key);
+
+        if (actualVal != value)
+            return null;
+
+        remove(key);
+        return actualVal;
     }
 
     @Override
     public Iterator<K> iterator() {
-        throw new UnsupportedOperationException();
+        Set<K> keySet = keySet();
+        return keySet.iterator();
     }
 }
