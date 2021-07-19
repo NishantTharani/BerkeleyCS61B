@@ -1,5 +1,6 @@
 package lab9;
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -53,19 +54,40 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
      */
     @Override
     public V get(K key) {
-        throw new UnsupportedOperationException();
+        int hash = hash(key);
+        return this.buckets[hash].get(key);
     }
 
     /* Associates the specified value with the specified key in this map. */
     @Override
     public void put(K key, V value) {
-        throw new UnsupportedOperationException();
+        int hash = hash(key);
+        if (!this.buckets[hash].containsKey(key))
+            size++;
+
+        this.buckets[hash].put(key, value);
+
+        if (loadFactor() > MAX_LF) {
+            ArrayMap<K, V>[] oldBuckets = this.buckets;
+            int numBuckets = buckets.length;
+            this.buckets = new ArrayMap[numBuckets * 2];
+            this.clear();
+            for (ArrayMap<K, V> oldBucket : oldBuckets) {
+                for (K oldKey : oldBucket.keySet()) {
+                    V val = oldBucket.get(oldKey);
+                    int newHash = hash(oldKey);
+                    this.buckets[newHash].put(oldKey, val);
+                    size++;
+                }
+            }
+        }
+
     }
 
     /* Returns the number of key-value mappings in this map. */
     @Override
     public int size() {
-        throw new UnsupportedOperationException();
+        return size;
     }
 
     //////////////// EVERYTHING BELOW THIS LINE IS OPTIONAL ////////////////
@@ -73,7 +95,15 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
     /* Returns a Set view of the keys contained in this map. */
     @Override
     public Set<K> keySet() {
-        throw new UnsupportedOperationException();
+        Set<K> keySet = new HashSet<>();
+
+        for (ArrayMap<K, V> bucket : this.buckets) {
+            for (K key : bucket.keySet()) {
+                keySet.add(key);
+            }
+        }
+
+        return keySet;
     }
 
     /* Removes the mapping for the specified key from this map if exists.
