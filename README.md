@@ -12,14 +12,15 @@ The folder structure of the skeleton code has been preserved so that I can take 
 HW/Projects:
 
 - Project 1A, 1B, 1-Gold
-- HW1, HW2
+- HW1, HW2, HW3
 
 Labs:
 
-- 1, 2, 3
+- 1, 2, 3, 9
 - Spring 2019:
   - Lab 6
   - Challenge lab 6
+  - Lab 9
 
 Discussions (Spring 2019, and to the extent that I wanted to do them):
 
@@ -28,6 +29,7 @@ Discussions (Spring 2019, and to the extent that I wanted to do them):
 - Disc 4
 - Disc 6
 - Disc 7 (and exam prep)
+- Disc 8 (and exam prep)
 - Disc 9 (and exam prep)
 - Spring 2018:
   - Disc 7
