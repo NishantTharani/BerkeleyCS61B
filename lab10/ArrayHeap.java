@@ -141,7 +141,6 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
             resize(contents.length * 2);
         }
 
-        /* TODO: Your code here! */
         size++;
         contents[size] = new Node(item, priority);
         swim(size);
@@ -171,7 +170,12 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         swap(1, size);
         contents[size] = null;
         size--;
-        sink(1);
+        if (size > 0) {
+            sink(1);
+        }
+
+        // I guess ideally we'd resize downwards here too?
+
         return out;
     }
 
