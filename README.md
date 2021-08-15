@@ -31,5 +31,6 @@ Discussions (Spring 2019, and to the extent that I wanted to do them):
 - Disc 7 (and exam prep)
 - Disc 8 (and exam prep)
 - Disc 9 (and exam prep)
+- Disc 10 (and exam prep)
 - Spring 2018:
   - Disc 7
