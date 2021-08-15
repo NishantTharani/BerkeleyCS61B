@@ -16,7 +16,7 @@ HW/Projects:
 
 Labs:
 
-- 1, 2, 3, 9, 10
+- 1, 2, 3, 9, 10, 11
 - Spring 2019:
   - Lab 6
   - Challenge lab 6
