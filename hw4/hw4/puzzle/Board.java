@@ -58,8 +58,8 @@ public class Board implements WorldState {
         candidates.add(new int[]{blankx, blanky + 1});
 
         for (int[] candidate : candidates) {
-            if (candidate[0] >= 0 && candidate[1] >= 0 &&
-                    candidate[0] <= n - 1 && candidate[1] <= n - 1) {
+            if (candidate[0] >= 0 && candidate[1] >= 0
+                    && candidate[0] <= n - 1 && candidate[1] <= n - 1) {
                 int[][] newTiles = swapTiles(blankx, blanky, candidate[0], candidate[1]);
                 Board newBoard = new Board(newTiles);
                 neighbors.add(newBoard);
