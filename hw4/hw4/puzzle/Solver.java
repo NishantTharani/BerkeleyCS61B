@@ -2,12 +2,11 @@ package hw4.puzzle;
 import edu.princeton.cs.algs4.MinPQ;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 public class Solver {
-    MinPQ<SearchNode> pq;
-    SearchNode goalNode;
+    private MinPQ<SearchNode> pq;
+    private SearchNode goalNode;
 
     private class SearchNode implements Comparable<SearchNode> {
         final WorldState state;

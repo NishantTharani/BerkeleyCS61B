@@ -14,11 +14,11 @@ public class Board implements WorldState {
         this.tiles = cloneTiles(tiles, n);
     }
 
-    private int[][] cloneTiles(int[][] tiles, int n) {
-        int[][] newTiles = new int[n][n];
+    private int[][] cloneTiles(int[][] oldTiles, int oldN) {
+        int[][] newTiles = new int[oldN][oldN];
 
-        for (int i = 0; i < n; i++) {
-            System.arraycopy(tiles[i], 0, newTiles[i], 0, n);
+        for (int i = 0; i < oldN; i++) {
+            System.arraycopy(oldTiles[i], 0, newTiles[i], 0, n);
         }
 
         return newTiles;
@@ -58,7 +58,8 @@ public class Board implements WorldState {
         candidates.add(new int[]{blankx, blanky + 1});
 
         for (int[] candidate : candidates) {
-            if (candidate[0] >= 0 && candidate[1] >= 0 && candidate[0] <= n-1 && candidate[1] <= n-1) {
+            if (candidate[0] >= 0 && candidate[1] >= 0 &&
+                    candidate[0] <= n - 1 && candidate[1] <= n - 1) {
                 int[][] newTiles = swapTiles(blankx, blanky, candidate[0], candidate[1]);
                 Board newBoard = new Board(newTiles);
                 neighbors.add(newBoard);
@@ -125,6 +126,7 @@ public class Board implements WorldState {
         return manhattan();
     }
 
+    @Override
     public boolean equals(Object y) {
         Board other = (Board) y;
 
@@ -143,6 +145,21 @@ public class Board implements WorldState {
         return true;
     }
 
+    @Override
+    public int hashCode() {
+        int pow = 1;
+        int hash = 0;
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                hash += tiles[i][j] * pow;
+                pow *= 10;
+            }
+        }
+
+        return hash;
+    }
+
     /** Returns the string representation of the board. 
       * Uncomment this method. */
     public String toString() {
@@ -151,7 +168,7 @@ public class Board implements WorldState {
         s.append(N + "\n");
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
-                s.append(String.format("%2d ", tileAt(i,j)));
+                s.append(String.format("%2d ", tileAt(i, j)));
             }
             s.append("\n");
         }
