@@ -9,10 +9,13 @@ The folder structure of the skeleton code has been preserved so that I can take 
 
 (Spring 2018 versions unless stated otherwise)
 
+Exams:
+- Midterm 1, 2
+
 HW/Projects:
 
 - Project 1A, 1B, 1-Gold
-- HW1, HW2, HW3
+- HW1, HW2, HW3, HW4
 
 Labs:
 
